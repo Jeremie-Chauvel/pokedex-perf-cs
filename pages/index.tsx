@@ -12,7 +12,7 @@ import { Pokemon, PokemonLazy } from "@/components/Pokemon";
 const inter = Inter({ subsets: ["latin"] });
 type PokemonId = number;
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   let pokemonPromises = [];
   for (let pokemonId = 1; pokemonId <= INITIAL_MAX_POKEMON_ID; pokemonId++) {
     pokemonPromises.push(getPokemon(pokemonId));
