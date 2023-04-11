@@ -1,5 +1,5 @@
-export const MAX_POKEMON_ID = 20;
-export const INITIAL_MAX_POKEMON_ID = 20;
+export const MAX_POKEMON_ID = 100;
+export const INITIAL_MAX_POKEMON_ID = 10;
 
 export const LAZY_LOADED_POKEMON_IDS = [
   ...Array(MAX_POKEMON_ID - INITIAL_MAX_POKEMON_ID),
