@@ -5,6 +5,8 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head />
+      <link rel="dns-prefetch" href="https://pokeapi.co/" />
+
       <script src="https://www.googletagmanager.com/gtag/js?id=G-9SW98FYM4Z"></script>
       <Script id="google-analytics" strategy="beforeInteractive">
         {`
