@@ -14,7 +14,7 @@ import {
 import { Layout } from "@/components/Layout";
 import { TypesList, CallMyPokemon } from "@/components/Pokemon";
 import { getPokemonId } from "@/services/format/pokemon";
-import { capitalize } from "lodash";
+import capitalize from "lodash/capitalize";
 
 const inter = Inter({ subsets: ["latin"] });
 

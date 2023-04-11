@@ -1,4 +1,4 @@
-import { padStart } from "lodash";
+import padStart from "lodash/padStart";
 import { PokemonResponse } from "../api/pokemon";
 
 export function getPokemonId(pokemon: PokemonResponse) {
