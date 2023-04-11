@@ -14,19 +14,9 @@ import {
 import { Layout } from "@/components/Layout";
 import { TypesList, CallMyPokemon } from "@/components/Pokemon";
 import { getPokemonId } from "@/services/format/pokemon";
-import { useEffect, useState } from "react";
-import { capitalize } from "lodash";
+import capitalize from "lodash/capitalize";
 
 const inter = Inter({ subsets: ["latin"] });
-
-export async function getServerSideProps(context: NextPageContext) {
-  const pokemonId = context.query.pokemonId;
-  if (!pokemonId || typeof pokemonId !== "string") return { notFound: true };
-  const pokemonIdNumber = Number(pokemonId);
-  if (isNaN(pokemonIdNumber)) return { notFound: true };
-
-  return { props: { pokemonIdNumber } };
-}
 
 type PokemonDetails = {
   pokemon: PokemonResponse;
@@ -51,25 +41,26 @@ async function getPokemonDetails(
   return { pokemon, pokemonSpecie, prevPokemon, nextPokemon };
 }
 
+export async function getServerSideProps(context: NextPageContext) {
+  const { pokemonId } = context.query;
+
+  if (!pokemonId || typeof pokemonId !== "string") return { notFound: true };
+
+  const pokemonIdNumber = Number(pokemonId);
+  if (isNaN(pokemonIdNumber)) return { notFound: true };
+
+  return {
+    props: {
+      pokemonDetails: await getPokemonDetails(pokemonIdNumber),
+    },
+  };
+}
+
 export default function PokemonDetails({
-  pokemonIdNumber,
+  pokemonDetails: { pokemon, pokemonSpecie, prevPokemon, nextPokemon },
 }: {
-  pokemonIdNumber: number;
+  pokemonDetails: PokemonDetails;
 }) {
-  const [pokemonDetails, setPokemonDetails] = useState<PokemonDetails>();
-  useEffect(() => {
-    getPokemonDetails(pokemonIdNumber).then((pokemonDetails) =>
-      setPokemonDetails(pokemonDetails)
-    );
-    return () => {
-      setPokemonDetails(undefined);
-    };
-  }, [pokemonIdNumber]);
-
-  if (!pokemonDetails) return null;
-
-  const { pokemon, pokemonSpecie, prevPokemon, nextPokemon } = pokemonDetails;
-
   return (
     <>
       <Head>
